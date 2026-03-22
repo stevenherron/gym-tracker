@@ -39,10 +39,6 @@ export async function POST(request: NextRequest) {
         },
       };
 
-      if (s.rpe != null) {
-        properties["RPE"] = { number: s.rpe };
-      }
-
       const page = await notion.pages.create({
         parent: { data_source_id: DATA_SOURCE_ID },
         properties: properties as any,

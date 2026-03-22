@@ -14,7 +14,6 @@ export interface SetData {
   set: number;
   weight: number | null;
   reps: number | null;
-  rpe: number | null;
 }
 
 export interface LastSetData {

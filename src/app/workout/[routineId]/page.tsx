@@ -112,7 +112,6 @@ export default function WorkoutActive() {
             set: s.setNum,
             weight: parseFloat(s.weight),
             reps: parseInt(s.reps),
-            rpe: null,
           })),
         }),
       });
