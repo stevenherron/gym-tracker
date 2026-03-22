@@ -187,52 +187,59 @@ export default function WorkoutActive() {
               )}
 
               {/* Header */}
-              <div className="grid grid-cols-[2rem_1fr_1fr_3rem] gap-2 mb-1 text-neutral-500 text-xs">
+              <div className="grid grid-cols-[2rem_3.5rem_1fr_1fr_3rem] gap-2 mb-1 text-neutral-500 text-xs">
                 <span>#</span>
+                <span>Vorh.</span>
                 <span>kg</span>
                 <span>Reps</span>
                 <span></span>
               </div>
 
               {/* Sets */}
-              {group.sets.map((s) => (
-                <div
-                  key={s.idx}
-                  className={`grid grid-cols-[2rem_1fr_1fr_3rem] gap-2 items-center mb-2 ${
-                    s.done ? "opacity-50" : ""
-                  }`}
-                >
-                  <span className="text-neutral-500 text-sm">{s.setNum}</span>
-                  <input
-                    type="number"
-                    inputMode="decimal"
-                    value={s.weight}
-                    onChange={(e) => updateSet(s.idx, "weight", e.target.value)}
-                    onFocus={handleInputFocus}
-                    placeholder="—"
-                    className="bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2.5 text-white text-center focus:outline-none focus:border-blue-500 w-full"
-                  />
-                  <input
-                    type="number"
-                    inputMode="numeric"
-                    value={s.reps}
-                    onChange={(e) => updateSet(s.idx, "reps", e.target.value)}
-                    onFocus={handleInputFocus}
-                    placeholder="—"
-                    className="bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2.5 text-white text-center focus:outline-none focus:border-blue-500 w-full"
-                  />
-                  <button
-                    onClick={() => toggleDone(s.idx)}
-                    className={`w-10 h-10 rounded-lg border text-lg flex items-center justify-center transition-colors ${
-                      s.done
-                        ? "bg-green-600 border-green-500 text-white"
-                        : "bg-neutral-800 border-neutral-700 text-neutral-500 hover:border-green-500"
+              {group.sets.map((s) => {
+                const prevSet = last?.sets?.find((ls) => ls.set === s.setNum);
+                return (
+                  <div
+                    key={s.idx}
+                    className={`grid grid-cols-[2rem_3.5rem_1fr_1fr_3rem] gap-2 items-center mb-2 ${
+                      s.done ? "opacity-50" : ""
                     }`}
                   >
-                    ✓
-                  </button>
-                </div>
-              ))}
+                    <span className="text-neutral-500 text-sm">{s.setNum}</span>
+                    <span className="text-neutral-500 text-xs text-center">
+                      {prevSet ? `${prevSet.weight}` : "—"}
+                    </span>
+                    <input
+                      type="number"
+                      inputMode="decimal"
+                      value={s.weight}
+                      onChange={(e) => updateSet(s.idx, "weight", e.target.value)}
+                      onFocus={handleInputFocus}
+                      placeholder="—"
+                      className="bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2.5 text-white text-center focus:outline-none focus:border-blue-500 w-full"
+                    />
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      value={s.reps}
+                      onChange={(e) => updateSet(s.idx, "reps", e.target.value)}
+                      onFocus={handleInputFocus}
+                      placeholder="—"
+                      className="bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2.5 text-white text-center focus:outline-none focus:border-blue-500 w-full"
+                    />
+                    <button
+                      onClick={() => toggleDone(s.idx)}
+                      className={`w-10 h-10 rounded-lg border text-lg flex items-center justify-center transition-colors ${
+                        s.done
+                          ? "bg-green-600 border-green-500 text-white"
+                          : "bg-neutral-800 border-neutral-700 text-neutral-500 hover:border-green-500"
+                      }`}
+                    >
+                      ✓
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           );
         })}
